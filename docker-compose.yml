@@ -1,0 +1,15 @@
+version: '3.8'
+
+name: 'important'
+
+services:
+
+  db:
+    image: postgres:13.6-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: important_dev
+    ports:
+      - '5432:5432'
