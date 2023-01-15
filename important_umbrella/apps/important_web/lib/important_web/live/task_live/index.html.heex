@@ -1,0 +1,55 @@
+<.header>
+  Listing Tasks
+  <:actions>
+    <.link patch={~p"/tasks/new"}>
+      <.button>New Task</.button>
+    </.link>
+  </:actions>
+</.header>
+
+<.table id="tasks" rows={@tasks} row_click={&JS.navigate(~p"/tasks/#{&1}")}>
+  <:col :let={task} label="Uid"><%= task.uid %></:col>
+  <:col :let={task} label="Dtstamp"><%= task.dtstamp %></:col>
+  <:col :let={task} label="Completed"><%= task.completed %></:col>
+  <:col :let={task} label="Created"><%= task.created %></:col>
+  <:col :let={task} label="Description"><%= task.description %></:col>
+  <:col :let={task} label="Dtstart"><%= task.dtstart %></:col>
+  <:col :let={task} label="Due"><%= task.due %></:col>
+  <:col :let={task} label="Last modifier"><%= task.last_modifier %></:col>
+  <:col :let={task} label="Organizer"><%= task.organizer %></:col>
+  <:col :let={task} label="Percent complete"><%= task.percent_complete %></:col>
+  <:col :let={task} label="Priority"><%= task.priority %></:col>
+  <:col :let={task} label="Recurrence"><%= task.recurrence_id %></:col>
+  <:col :let={task} label="Rrule"><%= task.rrule %></:col>
+  <:col :let={task} label="Sequence"><%= task.sequence %></:col>
+  <:col :let={task} label="Status"><%= task.status %></:col>
+  <:col :let={task} label="Summary"><%= task.summary %></:col>
+  <:col :let={task} label="Url"><%= task.url %></:col>
+  <:action :let={task}>
+    <div class="sr-only">
+      <.link navigate={~p"/tasks/#{task}"}>Show</.link>
+    </div>
+    <.link patch={~p"/tasks/#{task}/edit"}>Edit</.link>
+  </:action>
+  <:action :let={task}>
+    <.link phx-click={JS.push("delete", value: %{id: task.id})} data-confirm="Are you sure?">
+      Delete
+    </.link>
+  </:action>
+</.table>
+
+<.modal
+  :if={@live_action in [:new, :edit]}
+  id="task-modal"
+  show
+  on_cancel={JS.navigate(~p"/tasks")}
+>
+  <.live_component
+    module={ImportantWeb.TaskLive.FormComponent}
+    id={@task.id || :new}
+    title={@page_title}
+    action={@live_action}
+    task={@task}
+    navigate={~p"/tasks"}
+  />
+</.modal>
