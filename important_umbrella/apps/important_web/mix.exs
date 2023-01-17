@@ -51,7 +51,8 @@ defmodule ImportantWeb.MixProject do
       {:gettext, "~> 0.20"},
       {:important, in_umbrella: true},
       {:jason, "~> 1.2"},
-      {:plug_cowboy, "~> 2.5"}
+      {:plug_cowboy, "~> 2.5"},
+      {:uniq, "~> 0.1"}
     ]
   end
 

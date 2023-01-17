@@ -9,23 +9,10 @@
 </.header>
 
 <.list>
-  <:item title="Uid"><%= @task.uid %></:item>
-  <:item title="Dtstamp"><%= @task.dtstamp %></:item>
-  <:item title="Completed"><%= @task.completed %></:item>
-  <:item title="Created"><%= @task.created %></:item>
-  <:item title="Description"><%= @task.description %></:item>
-  <:item title="Dtstart"><%= @task.dtstart %></:item>
-  <:item title="Due"><%= @task.due %></:item>
-  <:item title="Last modifier"><%= @task.last_modifier %></:item>
-  <:item title="Organizer"><%= @task.organizer %></:item>
-  <:item title="Percent complete"><%= @task.percent_complete %></:item>
-  <:item title="Priority"><%= @task.priority %></:item>
-  <:item title="Recurrence"><%= @task.recurrence_id %></:item>
-  <:item title="Rrule"><%= @task.rrule %></:item>
-  <:item title="Sequence"><%= @task.sequence %></:item>
-  <:item title="Status"><%= @task.status %></:item>
   <:item title="Summary"><%= @task.summary %></:item>
-  <:item title="Url"><%= @task.url %></:item>
+  <:item title="Description"><%= @task.description %></:item>
+  <:item title="Priority"><%= Productivity.Task.label(:priority, @task.priority) %></:item>
+  <:item title="Status"><%= Productivity.Task.label(:status, @task.status) %></:item>
 </.list>
 
 <.back navigate={~p"/tasks"}>Back to tasks</.back>

@@ -15,7 +15,7 @@ defmodule Important.ProductivityTest do
       dtstamp: nil,
       dtstart: nil,
       due: nil,
-      last_modifier: nil,
+      last_modified: nil,
       organizer: nil,
       percent_complete: nil,
       priority: nil,
@@ -46,7 +46,7 @@ defmodule Important.ProductivityTest do
         dtstamp: ~U[2023-01-14 04:25:00Z],
         dtstart: ~U[2023-01-14 04:25:00Z],
         due: ~U[2023-01-14 04:25:00Z],
-        last_modifier: ~U[2023-01-14 04:25:00Z],
+        last_modified: ~U[2023-01-14 04:25:00Z],
         organizer: "some organizer",
         percent_complete: 42,
         priority: 42,
@@ -66,7 +66,7 @@ defmodule Important.ProductivityTest do
       assert task.dtstamp == ~U[2023-01-14 04:25:00Z]
       assert task.dtstart == ~U[2023-01-14 04:25:00Z]
       assert task.due == ~U[2023-01-14 04:25:00Z]
-      assert task.last_modifier == ~U[2023-01-14 04:25:00Z]
+      assert task.last_modified == ~U[2023-01-14 04:25:00Z]
       assert task.organizer == "some organizer"
       assert task.percent_complete == 42
       assert task.priority == 42
@@ -93,7 +93,7 @@ defmodule Important.ProductivityTest do
         dtstamp: ~U[2023-01-15 04:25:00Z],
         dtstart: ~U[2023-01-15 04:25:00Z],
         due: ~U[2023-01-15 04:25:00Z],
-        last_modifier: ~U[2023-01-15 04:25:00Z],
+        last_modified: ~U[2023-01-15 04:25:00Z],
         organizer: "some updated organizer",
         percent_complete: 43,
         priority: 43,
@@ -113,7 +113,7 @@ defmodule Important.ProductivityTest do
       assert task.dtstamp == ~U[2023-01-15 04:25:00Z]
       assert task.dtstart == ~U[2023-01-15 04:25:00Z]
       assert task.due == ~U[2023-01-15 04:25:00Z]
-      assert task.last_modifier == ~U[2023-01-15 04:25:00Z]
+      assert task.last_modified == ~U[2023-01-15 04:25:00Z]
       assert task.organizer == "some updated organizer"
       assert task.percent_complete == 43
       assert task.priority == 43

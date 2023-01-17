@@ -8,23 +8,12 @@
 </.header>
 
 <.table id="tasks" rows={@tasks} row_click={&JS.navigate(~p"/tasks/#{&1}")}>
-  <:col :let={task} label="Uid"><%= task.uid %></:col>
-  <:col :let={task} label="Dtstamp"><%= task.dtstamp %></:col>
-  <:col :let={task} label="Completed"><%= task.completed %></:col>
-  <:col :let={task} label="Created"><%= task.created %></:col>
-  <:col :let={task} label="Description"><%= task.description %></:col>
-  <:col :let={task} label="Dtstart"><%= task.dtstart %></:col>
-  <:col :let={task} label="Due"><%= task.due %></:col>
-  <:col :let={task} label="Last modifier"><%= task.last_modifier %></:col>
-  <:col :let={task} label="Organizer"><%= task.organizer %></:col>
-  <:col :let={task} label="Percent complete"><%= task.percent_complete %></:col>
-  <:col :let={task} label="Priority"><%= task.priority %></:col>
-  <:col :let={task} label="Recurrence"><%= task.recurrence_id %></:col>
-  <:col :let={task} label="Rrule"><%= task.rrule %></:col>
-  <:col :let={task} label="Sequence"><%= task.sequence %></:col>
-  <:col :let={task} label="Status"><%= task.status %></:col>
   <:col :let={task} label="Summary"><%= task.summary %></:col>
-  <:col :let={task} label="Url"><%= task.url %></:col>
+  <:col :let={task} label="Description"><%= task.description %></:col>
+  <:col :let={task} label="Priority">
+    <%= Productivity.Task.label(:priority, task.priority) %>
+  </:col>
+  <:col :let={task} label="Status"><%= Productivity.Task.label(:status, task.status) %></:col>
   <:action :let={task}>
     <div class="sr-only">
       <.link navigate={~p"/tasks/#{task}"}>Show</.link>

@@ -10,7 +10,7 @@ defmodule Important.Repo.Migrations.CreateTasks do
       add :description, :text
       add :dtstart, :utc_datetime
       add :due, :utc_datetime
-      add :last_modifier, :utc_datetime
+      add :last_modified, :utc_datetime
       add :organizer, :text
       add :percent_complete, :integer
       add :priority, :integer

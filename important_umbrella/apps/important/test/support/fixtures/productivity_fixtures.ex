@@ -17,7 +17,7 @@ defmodule Important.ProductivityFixtures do
         dtstamp: ~U[2023-01-14 04:25:00Z],
         dtstart: ~U[2023-01-14 04:25:00Z],
         due: ~U[2023-01-14 04:25:00Z],
-        last_modifier: ~U[2023-01-14 04:25:00Z],
+        last_modified: ~U[2023-01-14 04:25:00Z],
         organizer: "some organizer",
         percent_complete: 42,
         priority: 42,

@@ -9,7 +9,7 @@ defmodule Important.Productivity.Task do
     field :dtstamp, :utc_datetime
     field :dtstart, :utc_datetime
     field :due, :utc_datetime
-    field :last_modifier, :utc_datetime
+    field :last_modified, :utc_datetime
     field :organizer, :string
     field :percent_complete, :integer
     field :priority, :integer
@@ -35,7 +35,7 @@ defmodule Important.Productivity.Task do
       :description,
       :dtstart,
       :due,
-      :last_modifier,
+      :last_modified,
       :organizer,
       :percent_complete,
       :priority,
@@ -48,22 +48,19 @@ defmodule Important.Productivity.Task do
     ])
     |> validate_required([
       :uid,
-      :dtstamp,
-      :completed,
-      :created,
-      :description,
-      :dtstart,
-      :due,
-      :last_modifier,
-      :organizer,
-      :percent_complete,
-      :priority,
-      :recurrence_id,
-      :rrule,
-      :sequence,
-      :status,
-      :summary,
-      :url
+      :dtstamp
     ])
   end
+
+  def label(:status, "NEEDS-ACTION"), do: "Needs action"
+  def label(:status, "IN-PROCESS"), do: "In process"
+  def label(:status, "COMPLETED"), do: "Completed"
+  def label(:status, "CANCELLED"), do: "Cancelled"
+
+  def label(:priority, 1), do: "Important"
+  def label(:priority, 2), do: "High"
+  def label(:priority, 5), do: "Medium"
+  def label(:priority, 9), do: "Low"
+
+  def label(_, value), do: value
 end

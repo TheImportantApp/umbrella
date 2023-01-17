@@ -2,6 +2,7 @@ defmodule ImportantWeb.TaskLive.FormComponent do
   use ImportantWeb, :live_component
 
   alias Important.Productivity
+  alias Uniq.UUID
 
   @impl true
   def render(assigns) do
@@ -20,23 +21,30 @@ defmodule ImportantWeb.TaskLive.FormComponent do
         phx-change="validate"
         phx-submit="save"
       >
-        <.input field={{f, :uid}} type="text" label="Uid" />
-        <.input field={{f, :dtstamp}} type="datetime-local" label="Dtstamp" />
-        <.input field={{f, :completed}} type="datetime-local" label="Completed" />
-        <.input field={{f, :created}} type="datetime-local" label="Created" />
-        <.input field={{f, :description}} type="text" label="Description" />
-        <.input field={{f, :dtstart}} type="datetime-local" label="Dtstart" />
-        <.input field={{f, :due}} type="datetime-local" label="Due" />
-        <.input field={{f, :last_modifier}} type="datetime-local" label="Last modifier" />
-        <.input field={{f, :organizer}} type="text" label="Organizer" />
-        <.input field={{f, :percent_complete}} type="number" label="Percent complete" />
-        <.input field={{f, :priority}} type="number" label="Priority" />
-        <.input field={{f, :recurrence_id}} type="datetime-local" label="Recurrence" />
-        <.input field={{f, :rrule}} type="text" label="Rrule" />
-        <.input field={{f, :sequence}} type="number" label="Sequence" />
-        <.input field={{f, :status}} type="text" label="Status" />
         <.input field={{f, :summary}} type="text" label="Summary" />
-        <.input field={{f, :url}} type="text" label="Url" />
+        <.input field={{f, :description}} type="text" label="Description" />
+        <.input
+          field={{f, :priority}}
+          type="select"
+          options={[
+            {Productivity.Task.label(:priority, 1), 1},
+            {Productivity.Task.label(:priority, 2), 2},
+            {Productivity.Task.label(:priority, 5), 5},
+            {Productivity.Task.label(:priority, 9), 9}
+          ]}
+          label="Priority"
+        />
+        <.input
+          field={{f, :status}}
+          type="select"
+          options={[
+            {Productivity.Task.label(:status, "NEEDS-ACTION"), "NEEDS-ACTION"},
+            {Productivity.Task.label(:status, "IN-PROCESS"), "IN-PROCESS"},
+            {Productivity.Task.label(:status, "COMPLETED"), "COMPLETED"},
+            {Productivity.Task.label(:status, "CANCELLED"), "CANCELLED"}
+          ]}
+          label="Status"
+        />
         <:actions>
           <.button phx-disable-with="Saving...">Save Task</.button>
         </:actions>
@@ -83,6 +91,9 @@ defmodule ImportantWeb.TaskLive.FormComponent do
   end
 
   defp save_task(socket, :new, task_params) do
+    task_params =
+      Map.merge(%{"uid" => UUID.uuid4(), "dtstamp" => DateTime.utc_now()}, task_params)
+
     case Productivity.create_task(task_params) do
       {:ok, _task} ->
         {:noreply,
