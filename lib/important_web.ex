@@ -87,6 +87,8 @@ defmodule ImportantWeb do
       import ImportantWeb.CoreComponents
       import ImportantWeb.Gettext
 
+      use PetalComponents
+
       # Shortcut for generating JS commands
       alias Phoenix.LiveView.JS
 
