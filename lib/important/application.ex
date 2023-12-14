@@ -13,8 +13,8 @@ defmodule Important.Application do
       {Phoenix.PubSub, name: Important.PubSub},
       # Start the Finch HTTP client for sending emails
       {Finch, name: Important.Finch},
-      # Start a worker by calling: Important.Worker.start_link(arg)
-      # {Important.Worker, arg},
+      # Start task store registry
+      {Registry, keys: :unique, name: Important.TaskStoreRegistry},
       # Start to serve requests, typically the last entry
       ImportantWeb.Endpoint
     ]

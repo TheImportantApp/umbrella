@@ -26,13 +26,12 @@ defmodule Important.Task do
     # but SHOULD NOT occur more than once.
     {rrule, attrs} = Keyword.pop(attrs, :rrule)
 
-    # Either 'dtend' or 'duration' MAY appear in
-    # a 'task', but 'dtend' and 'duration'
-    # MUST NOT occur in the same 'task'.
+    # The 'duration' is REQUIRED when 'dtstart'
+    # is specified, and OPTIONAL otherwise,
+    # but MUST NOT occur more than once.
 
-    # Note: dtend and duration, in combination with dtstart,
-    # represent when the task is worked on.
-    {dtend, attrs} = Keyword.pop(attrs, :dtend)
+    # Note: 'duration' in combination with 'dtstart'
+    # represents when the task is worked on.
     {duration, attrs} = Keyword.pop(attrs, :duration)
 
     # Note: The due date is not mutually exclusive
@@ -74,7 +73,6 @@ defmodule Important.Task do
        transp: transp,
        url: url,
        rrule: rrule,
-       dtend: dtend,
        duration: duration,
        due: due,
        attachments: attachments,

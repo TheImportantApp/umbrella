@@ -49,7 +49,10 @@ defmodule Important.MixProject do
       {:dns_cluster, "~> 0.1.1"},
       {:plug_cowboy, "~> 2.5"},
       {:petal_components, "~> 1.0"},
-      {:ulid, "~> 0.2.0"}
+      {:ulid, "~> 0.2.0"},
+      {:timex, "~> 3.0"},
+      {:faker, "~> 0.17", only: [:test, :dev]},
+      {:ex_machina, "~> 2.7.0", only: :test}
     ]
   end
 
