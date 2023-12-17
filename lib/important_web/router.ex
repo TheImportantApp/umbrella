@@ -18,6 +18,8 @@ defmodule ImportantWeb.Router do
     pipe_through :browser
 
     get "/", PageController, :home
+
+    live "/calendar", CalendarLive
   end
 
   # Other scopes may use custom stacks.
