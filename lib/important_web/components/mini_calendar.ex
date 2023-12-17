@@ -74,23 +74,34 @@ defmodule ImportantWeb.Components.MiniCalendar do
     prev_month_range = Range.new(days_in_prev_month - day_of_first + 1, days_in_prev_month, 1)
     next_month_range = Range.new(1, 6 - day_of_last, 1)
 
+    assigns =
+      assign(assigns,
+        prev_year: prev_year,
+        prev_month: prev_month,
+        prev_month_range: prev_month_range,
+        curr_month_range: curr_month_range,
+        next_year: next_year,
+        next_month: next_month,
+        next_month_range: next_month_range
+      )
+
     ~H"""
     <div class="isolate mt-2 grid grid-cols-7 gap-px rounded-lg bg-gray-200 text-sm shadow ring-1 ring-gray-200">
       <.date_cell
-        :for={day <- prev_month_range}
-        date={Date.new!(prev_year, prev_month, day)}
+        :for={day <- @prev_month_range}
+        date={Date.new!(@prev_year, @prev_month, day)}
         selected_date={@selected_date}
         is_current_month={false}
       />
       <.date_cell
-        :for={day <- curr_month_range}
+        :for={day <- @curr_month_range}
         date={Date.new!(@year, @month, day)}
         selected_date={@selected_date}
         is_current_month={true}
       />
       <.date_cell
-        :for={day <- next_month_range}
-        date={Date.new!(next_year, next_month, day)}
+        :for={day <- @next_month_range}
+        date={Date.new!(@next_year, @next_month, day)}
         selected_date={@selected_date}
         is_current_month={false}
       />
@@ -119,8 +130,11 @@ defmodule ImportantWeb.Components.MiniCalendar do
   end
 
   defp date_cell(assigns) do
-    is_selected = assigns.selected_date == assigns.date
-    is_today = Date.utc_today() == assigns.date
+    assigns =
+      assign(assigns,
+        is_selected: assigns.selected_date == assigns.date,
+        is_today: Date.utc_today() == assigns.date
+      )
 
     ~H"""
     <button
@@ -128,15 +142,15 @@ defmodule ImportantWeb.Components.MiniCalendar do
       class={[
         "py-1.5 hover:bg-gray-100 focus:z-10",
         get_date_cell_button_bg_classes(@is_current_month),
-        get_date_cell_button_font_weight_classes(is_selected || is_today),
-        get_date_cell_button_text_color_classes(is_selected, is_today, @is_current_month)
+        get_date_cell_button_font_weight_classes(@is_selected || @is_today),
+        get_date_cell_button_text_color_classes(@is_selected, @is_today, @is_current_month)
       ]}
     >
       <time
         datetime={Timex.format!(@date, "{YYYY}-{0M}-{0D}")}
         class={[
           "mx-auto flex h-7 w-7 items-center justify-center rounded-full",
-          get_date_cell_time_bg_classes(is_selected)
+          get_date_cell_time_bg_classes(@is_selected)
         ]}
       >
         <%= @date.day %>
