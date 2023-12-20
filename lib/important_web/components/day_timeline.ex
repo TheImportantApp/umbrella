@@ -12,114 +12,30 @@ defmodule ImportantWeb.Components.DayTimeline do
           style="grid-template-rows: repeat(48, minmax(3.5rem, 1fr))"
         >
           <div class="row-end-1 h-7"></div>
-          <div>
-            <div class="-ml-14 -mt-2.5 w-14 pr-2 text-right text-xs leading-5 text-gray-400">
-              12AM
-            </div>
-          </div>
-          <div></div>
-          <div>
-            <div class="-ml-14 -mt-2.5 w-14 pr-2 text-right text-xs leading-5 text-gray-400">1AM</div>
-          </div>
-          <div></div>
-          <div>
-            <div class="-ml-14 -mt-2.5 w-14 pr-2 text-right text-xs leading-5 text-gray-400">2AM</div>
-          </div>
-          <div></div>
-          <div>
-            <div class="-ml-14 -mt-2.5 w-14 pr-2 text-right text-xs leading-5 text-gray-400">3AM</div>
-          </div>
-          <div></div>
-          <div>
-            <div class="-ml-14 -mt-2.5 w-14 pr-2 text-right text-xs leading-5 text-gray-400">4AM</div>
-          </div>
-          <div></div>
-          <div>
-            <div class="-ml-14 -mt-2.5 w-14 pr-2 text-right text-xs leading-5 text-gray-400">5AM</div>
-          </div>
-          <div></div>
-          <div>
-            <div class="-ml-14 -mt-2.5 w-14 pr-2 text-right text-xs leading-5 text-gray-400">6AM</div>
-          </div>
-          <div></div>
-          <div>
-            <div class="-ml-14 -mt-2.5 w-14 pr-2 text-right text-xs leading-5 text-gray-400">7AM</div>
-          </div>
-          <div></div>
-          <div>
-            <div class="-ml-14 -mt-2.5 w-14 pr-2 text-right text-xs leading-5 text-gray-400">8AM</div>
-          </div>
-          <div></div>
-          <div>
-            <div class="-ml-14 -mt-2.5 w-14 pr-2 text-right text-xs leading-5 text-gray-400">9AM</div>
-          </div>
-          <div></div>
-          <div>
-            <div class="-ml-14 -mt-2.5 w-14 pr-2 text-right text-xs leading-5 text-gray-400">
-              10AM
-            </div>
-          </div>
-          <div></div>
-          <div>
-            <div class="-ml-14 -mt-2.5 w-14 pr-2 text-right text-xs leading-5 text-gray-400">
-              11AM
-            </div>
-          </div>
-          <div></div>
-          <div>
-            <div class="-ml-14 -mt-2.5 w-14 pr-2 text-right text-xs leading-5 text-gray-400">
-              12PM
-            </div>
-          </div>
-          <div></div>
-          <div>
-            <div class="-ml-14 -mt-2.5 w-14 pr-2 text-right text-xs leading-5 text-gray-400">1PM</div>
-          </div>
-          <div></div>
-          <div>
-            <div class="-ml-14 -mt-2.5 w-14 pr-2 text-right text-xs leading-5 text-gray-400">2PM</div>
-          </div>
-          <div></div>
-          <div>
-            <div class="-ml-14 -mt-2.5 w-14 pr-2 text-right text-xs leading-5 text-gray-400">3PM</div>
-          </div>
-          <div></div>
-          <div>
-            <div class="-ml-14 -mt-2.5 w-14 pr-2 text-right text-xs leading-5 text-gray-400">4PM</div>
-          </div>
-          <div></div>
-          <div>
-            <div class="-ml-14 -mt-2.5 w-14 pr-2 text-right text-xs leading-5 text-gray-400">5PM</div>
-          </div>
-          <div></div>
-          <div>
-            <div class="-ml-14 -mt-2.5 w-14 pr-2 text-right text-xs leading-5 text-gray-400">6PM</div>
-          </div>
-          <div></div>
-          <div>
-            <div class="-ml-14 -mt-2.5 w-14 pr-2 text-right text-xs leading-5 text-gray-400">7PM</div>
-          </div>
-          <div></div>
-          <div>
-            <div class="-ml-14 -mt-2.5 w-14 pr-2 text-right text-xs leading-5 text-gray-400">8PM</div>
-          </div>
-          <div></div>
-          <div>
-            <div class="-ml-14 -mt-2.5 w-14 pr-2 text-right text-xs leading-5 text-gray-400">9PM</div>
-          </div>
-          <div></div>
-          <div>
-            <div class="-ml-14 -mt-2.5 w-14 pr-2 text-right text-xs leading-5 text-gray-400">
-              10PM
-            </div>
-          </div>
-          <div></div>
-          <div>
-            <div class="-ml-14 -mt-2.5 w-14 pr-2 text-right text-xs leading-5 text-gray-400">
-              11PM
-            </div>
-          </div>
-          <div></div>
+          <.hour_row time="12AM" />
+          <.hour_row time="1AM" />
+          <.hour_row time="2AM" />
+          <.hour_row time="3AM" />
+          <.hour_row time="4AM" />
+          <.hour_row time="5AM" />
+          <.hour_row time="6AM" />
+          <.hour_row time="7AM" />
+          <.hour_row time="8AM" />
+          <.hour_row time="9AM" />
+          <.hour_row time="10AM" />
+          <.hour_row time="11AM" />
+          <.hour_row time="12PM" />
+          <.hour_row time="1PM" />
+          <.hour_row time="2PM" />
+          <.hour_row time="3PM" />
+          <.hour_row time="4PM" />
+          <.hour_row time="5PM" />
+          <.hour_row time="6PM" />
+          <.hour_row time="7PM" />
+          <.hour_row time="8PM" />
+          <.hour_row time="9PM" />
+          <.hour_row time="10PM" />
+          <.hour_row time="11PM" />
         </div>
         <!-- Events -->
         <ol
@@ -166,6 +82,42 @@ defmodule ImportantWeb.Components.DayTimeline do
         </ol>
       </div>
     </div>
+    """
+  end
+
+  attr(:time, :string, doc: "The time to display")
+
+  defp hour_row(assigns) do
+    ~H"""
+    <div>
+      <div class="-ml-14 -mt-2.5 w-14 pr-2 text-right text-xs leading-5 text-gray-400">
+        <%= @time %>
+      </div>
+    </div>
+    <div></div>
+    """
+  end
+
+  attr(:dtstart, :string, doc: "The start time of the event")
+  attr(:duration, :string, doc: "The duration of the event")
+  attr(:summary, :string, doc: "The summary of the event")
+  attr(:description, :string, doc: "The description of the event")
+  attr(:color, :string, doc: "The color of the event")
+
+  def event_block(assigns) do
+    ~H"""
+    <li class="relative mt-px flex" style="grid-row: 134 / span 18">
+      <a
+        href="#"
+        class="group absolute inset-1 flex flex-col overflow-y-auto rounded-lg bg-indigo-50 p-2 text-xs leading-5 hover:bg-indigo-100"
+      >
+        <p class="order-1 font-semibold text-indigo-700"><%= @title %></p>
+        <p class="order-1 text-indigo-500 group-hover:text-indigo-700"><%= @description %></p>
+        <p class="text-indigo-500 group-hover:text-indigo-700">
+          <time datetime="2022-01-22T11:00">11:00 AM</time>
+        </p>
+      </a>
+    </li>
     """
   end
 end
