@@ -42,43 +42,26 @@ defmodule ImportantWeb.Components.DayTimeline do
           class="col-start-1 col-end-2 row-start-1 grid grid-cols-1"
           style="grid-template-rows: 1.75rem repeat(288, minmax(0, 1fr)) auto"
         >
-          <li class="relative mt-px flex" style="grid-row: 74 / span 12">
-            <a
-              href="#"
-              class="group absolute inset-1 flex flex-col overflow-y-auto rounded-lg bg-blue-50 p-2 text-xs leading-5 hover:bg-blue-100"
-            >
-              <p class="order-1 font-semibold text-blue-700">Breakfast</p>
-              <p class="text-blue-500 group-hover:text-blue-700">
-                <time datetime="2022-01-22T06:00">6:00 AM</time>
-              </p>
-            </a>
-          </li>
-          <li class="relative mt-px flex" style="grid-row: 92 / span 30">
-            <a
-              href="#"
-              class="group absolute inset-1 flex flex-col overflow-y-auto rounded-lg bg-pink-50 p-2 text-xs leading-5 hover:bg-pink-100"
-            >
-              <p class="order-1 font-semibold text-pink-700">Flight to Paris</p>
-              <p class="order-1 text-pink-500 group-hover:text-pink-700">
-                John F. Kennedy International Airport
-              </p>
-              <p class="text-pink-500 group-hover:text-pink-700">
-                <time datetime="2022-01-22T07:30">7:30 AM</time>
-              </p>
-            </a>
-          </li>
-          <li class="relative mt-px flex" style="grid-row: 134 / span 18">
-            <a
-              href="#"
-              class="group absolute inset-1 flex flex-col overflow-y-auto rounded-lg bg-indigo-50 p-2 text-xs leading-5 hover:bg-indigo-100"
-            >
-              <p class="order-1 font-semibold text-indigo-700">Sightseeing</p>
-              <p class="order-1 text-indigo-500 group-hover:text-indigo-700">Eiffel Tower</p>
-              <p class="text-indigo-500 group-hover:text-indigo-700">
-                <time datetime="2022-01-22T11:00">11:00 AM</time>
-              </p>
-            </a>
-          </li>
+          <.event_block
+            dtstart={DateTime.new!(~D[2022-01-22], ~T[06:00:00.000], "Etc/UTC")}
+            duration={3600}
+            summary="Breakfast"
+            color="blue"
+          />
+          <.event_block
+            dtstart={DateTime.new!(~D[2022-01-22], ~T[07:30:00.000], "Etc/UTC")}
+            duration={9000}
+            summary="Flight to Paris"
+            description="John F. Kennedy International Airport"
+            color="pink"
+          />
+          <.event_block
+            dtstart={DateTime.new!(~D[2022-01-22], ~T[11:00:00.000], "Etc/UTC")}
+            duration={5400}
+            summary="Sightseeing"
+            description="Eiffel Tower"
+            color="indigo"
+          />
         </ol>
       </div>
     </div>
@@ -98,26 +81,44 @@ defmodule ImportantWeb.Components.DayTimeline do
     """
   end
 
-  attr(:dtstart, :string, doc: "The start time of the event")
-  attr(:duration, :string, doc: "The duration of the event")
+  attr(:dtstart, DateTime, doc: "The start time of the event")
+  attr(:duration, :integer, doc: "The duration of the event")
   attr(:summary, :string, doc: "The summary of the event")
   attr(:description, :string, doc: "The description of the event")
   attr(:color, :string, doc: "The color of the event")
 
   def event_block(assigns) do
     ~H"""
-    <li class="relative mt-px flex" style="grid-row: 134 / span 18">
+    <li
+      class="relative mt-px flex"
+      style={"grid-row: #{time_offset(@dtstart)} / span #{duration_span(@duration)}"}
+    >
       <a
         href="#"
-        class="group absolute inset-1 flex flex-col overflow-y-auto rounded-lg bg-indigo-50 p-2 text-xs leading-5 hover:bg-indigo-100"
+        class={"group absolute inset-1 flex flex-col overflow-y-auto rounded-lg bg-#{@color}-50 p-2 text-xs leading-5 hover:bg-#{@color}-100"}
       >
-        <p class="order-1 font-semibold text-indigo-700"><%= @title %></p>
-        <p class="order-1 text-indigo-500 group-hover:text-indigo-700"><%= @description %></p>
-        <p class="text-indigo-500 group-hover:text-indigo-700">
-          <time datetime="2022-01-22T11:00">11:00 AM</time>
+        <p class={"order-1 font-semibold text-#{@color}-700"}><%= @summary %></p>
+        <p
+          :if={assigns[:description]}
+          class={"order-1 text-#{@color}-500 group-hover:text-#{@color}-700"}
+        >
+          <%= @description %>
+        </p>
+        <p class={"text-#{@color}-500 group-hover:text-#{@color}-700"}>
+          <time datetime={Timex.format!(@dtstart, "{YYYY}-{0M}-{0D}T{h24}:{m}")}>
+            <%= Timex.format!(@dtstart, "{h12}:{m} {AM}") %>
+          </time>
         </p>
       </a>
     </li>
     """
+  end
+
+  defp time_offset(dtstart) do
+    floor(Timex.diff(dtstart, dtstart |> Timex.beginning_of_day(), :minutes) / 5) + 2
+  end
+
+  defp duration_span(duration) do
+    floor(duration / 60 / 5)
   end
 end
