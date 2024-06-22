@@ -19,7 +19,8 @@ defmodule ImportantWeb.Router do
 
     get "/", PageController, :home
 
-    live "/calendar", CalendarLive
+    live "/calendar/day", CalendarLive, :day
+    live "/calendar/week", CalendarLive, :week
   end
 
   # Other scopes may use custom stacks.

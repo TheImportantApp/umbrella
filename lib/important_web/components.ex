@@ -2,9 +2,13 @@ defmodule ImportantWeb.Components do
   defmacro __using__(_) do
     quote do
       import ImportantWeb.Components.{
-        CalendarHeader,
+        DayCalendarHeader,
         DayTimeline,
-        MiniCalendar
+        DayTimelineHeader,
+        MiniCalendar,
+        WeekCalendarHeader,
+        WeekTimeline,
+        WeekTimelineHeader
       }
     end
   end

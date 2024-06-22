@@ -1,15 +1,23 @@
-defmodule ImportantWeb.Components.CalendarHeader do
+defmodule ImportantWeb.Components.DayCalendarHeader do
   use Phoenix.Component
 
-  def calendar_header(assigns) do
+  alias Phoenix.LiveView.JS
+
+  attr(:date, Date)
+
+  def day_calendar_header(assigns) do
     ~H"""
     <header class="flex flex-none items-center justify-between border-b border-gray-200 px-6 py-4">
       <div>
         <h1 class="text-base font-semibold leading-6 text-gray-900">
-          <time datetime="2022-01-22" class="sm:hidden">Jan 22, 2022</time>
-          <time datetime="2022-01-22" class="hidden sm:inline">January 22, 2022</time>
+          <time datetime={Timex.format!(@date, "{YYYY}-{0M}-{0D}")} class="sm:hidden">
+            <%= Timex.format!(@date, "{Mshort} {D}, {YYYY}") %>
+          </time>
+          <time datetime={Timex.format!(@date, "{YYYY}-{0M}-{0D}")} class="hidden sm:inline">
+            <%= Timex.format!(@date, "{Mfull} {D}, {YYYY}") %>
+          </time>
         </h1>
-        <p class="mt-1 text-sm text-gray-500">Saturday</p>
+        <p class="mt-1 text-sm text-gray-500"><%= Timex.weekday!(@date) |> Timex.day_name() %></p>
       </div>
       <div class="flex items-center">
         <div class="relative flex items-center rounded-md bg-white shadow-sm md:items-stretch">
@@ -55,6 +63,7 @@ defmodule ImportantWeb.Components.CalendarHeader do
               id="menu-button"
               aria-expanded="false"
               aria-haspopup="true"
+              phx-click={toggle_view_picker()}
             >
               Day view
               <svg
@@ -81,50 +90,48 @@ defmodule ImportantWeb.Components.CalendarHeader do
                 To: "transform opacity-0 scale-95"
             -->
             <div
-              class="absolute right-0 z-10 mt-3 w-36 origin-top-right overflow-hidden rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
+              id="view-picker"
+              class="hidden absolute right-0 z-10 mt-3 w-36 origin-top-right overflow-hidden rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
               role="menu"
               aria-orientation="vertical"
               aria-labelledby="menu-button"
               tabindex="-1"
+              phx-click-away={hide_view_picker()}
+              phx-window-keydown={hide_view_picker()}
+              phx-key="escape"
             >
               <div class="py-1" role="none">
                 <!-- Active: "bg-gray-100 text-gray-900", Not Active: "text-gray-700" -->
-                <a
-                  href="#"
-                  class="text-gray-700 block px-4 py-2 text-sm"
+                <.link
+                  patch="/calendar/day"
+                  class="bg-gray-100 text-gray-900 block px-4 py-2 text-sm"
                   role="menuitem"
                   tabindex="-1"
                   id="menu-item-0"
+                  phx-click={hide_view_picker()}
                 >
                   Day view
-                </a>
-                <a
-                  href="#"
+                </.link>
+                <.link
+                  patch="/calendar/week"
                   class="text-gray-700 block px-4 py-2 text-sm"
                   role="menuitem"
                   tabindex="-1"
                   id="menu-item-1"
+                  phx-click={hide_view_picker()}
                 >
                   Week view
-                </a>
-                <a
-                  href="#"
+                </.link>
+                <.link
+                  href="/calendar/month"
                   class="text-gray-700 block px-4 py-2 text-sm"
                   role="menuitem"
                   tabindex="-1"
                   id="menu-item-2"
+                  phx-click={hide_view_picker()}
                 >
                   Month view
-                </a>
-                <a
-                  href="#"
-                  class="text-gray-700 block px-4 py-2 text-sm"
-                  role="menuitem"
-                  tabindex="-1"
-                  id="menu-item-3"
-                >
-                  Year view
-                </a>
+                </.link>
               </div>
             </div>
           </div>
@@ -232,5 +239,26 @@ defmodule ImportantWeb.Components.CalendarHeader do
       </div>
     </header>
     """
+  end
+
+  defp hide_view_picker() do
+    JS.hide(
+      to: "#view-picker",
+      transition:
+        {"transition ease-in duration-75", "transform opacity-100 scale-100",
+         "transform opacity-0 scale-95"}
+    )
+  end
+
+  defp toggle_view_picker() do
+    JS.toggle(
+      to: "#view-picker",
+      in:
+        {"transition ease-out duration-100", "transform opacity-0 scale-95",
+         "transform opacity-100 scale-100"},
+      out:
+        {"transition ease-in duration-75", "transform opacity-100 scale-100",
+         "transform opacity-0 scale-95"}
+    )
   end
 end
